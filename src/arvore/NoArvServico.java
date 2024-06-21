@@ -16,6 +16,10 @@ public class NoArvServico {
         return info;
     }
 
+    public void setInfo(Servico info) {
+        this.info = info;
+    }
+
     public NoArvServico getEsq() {
         return esq;
     }

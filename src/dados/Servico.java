@@ -1,41 +1,46 @@
 package dados;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Servico {
-	
-	private int id;
-	private String descricao;
-	private double preco;
-	
-	public Servico(int id, String descricao, double preco) {
-		this.id = id;
-		this.descricao = descricao;
-		this.preco = preco;
-	}
+    private int id;
+    private String descricao;
+    private double preco;
+    private List<Carro> carros;
 
-	public int getId() {
-		return id;
-	}
+    public Servico(int id, String descricao, double preco) {
+        this.id = id;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.carros = new ArrayList<>();
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getDescricao() {
-		return descricao;
-	}
+    public String getDescricao() {
+        return descricao;
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public double getPreco() {
+        return preco;
+    }
 
-	public double getPreco() {
-		return preco;
-	}
+    public List<Carro> getCarros() {
+        return carros;
+    }
 
-	public void setPreco(double preco) {
-		this.preco = preco;
-	}
-	
-	
+    public void adicionarCarro(Carro carro) {
+        this.carros.add(carro);
+    }
 
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
 }
