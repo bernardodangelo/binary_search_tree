@@ -1,5 +1,6 @@
-import java.util.Scanner;
+package arvore;
 
+import java.util.Scanner;
 import arvore.ArvoreCarro;
 import arvore.ArvoreServico;
 import dados.Carro;
@@ -17,7 +18,7 @@ public class Main {
         do {
             exibirMenu();
             opcao = scanner.nextInt();
-            scanner.nextLine(); // Limpar o buffer do scanner
+            scanner.nextLine();
 
             switch (opcao) {
                 case 1:
@@ -30,19 +31,13 @@ public class Main {
                     buscarCarroPorId();
                     break;
                 case 4:
-                    inserirServico();
+                    alterarCarro();
                     break;
                 case 5:
-                    removerServico();
-                    break;
-                case 6:
-                    buscarServicoPorDescricao();
+                	inserirServico();
                     break;
                 case 7:
                     exibirCarros();
-                    break;
-                case 8:
-                    exibirServicos();
                     break;
                 case 0:
                     System.out.println("Encerrando o programa...");
@@ -74,7 +69,7 @@ public class Main {
         System.out.println("\nInserção de Carro:");
         System.out.print("Digite o ID do Carro: ");
         int id = scanner.nextInt();
-        scanner.nextLine(); // Limpar o buffer do scanner
+        scanner.nextLine();
         System.out.print("Digite a Marca do Carro: ");
         String marca = scanner.nextLine();
         System.out.print("Digite o Modelo do Carro: ");
@@ -92,7 +87,7 @@ public class Main {
         System.out.println("\nRemoção de Carro:");
         System.out.print("Digite o ID do Carro que deseja remover: ");
         int id = scanner.nextInt();
-        scanner.nextLine(); // Limpar o buffer do scanner
+        scanner.nextLine();
 
         if (arvoreCarro.remover(id)) {
             System.out.println("Carro removido com sucesso!");
@@ -105,8 +100,7 @@ public class Main {
         System.out.println("\nBusca de Carro por ID:");
         System.out.print("Digite o ID do Carro que deseja buscar: ");
         int id = scanner.nextInt();
-        scanner.nextLine(); // Limpar o buffer do scanner
-
+        scanner.nextLine();
         Carro carroEncontrado = arvoreCarro.buscarPorId(id);
         if (carroEncontrado != null) {
             System.out.println("Carro encontrado:");
@@ -117,54 +111,25 @@ public class Main {
             System.out.println("Carro não encontrado com o ID especificado.");
         }
     }
-
-    private static void inserirServico() {
-        System.out.println("\nInserção de Serviço:");
-        System.out.print("Digite o ID do Serviço: ");
+    
+    private static void alterarCarro() {
+        System.out.println("\nAlteração de Carro:");
+        System.out.print("Digite o ID do Carro que deseja alterar: ");
         int id = scanner.nextInt();
-        scanner.nextLine(); // Limpar o buffer do scanner
-        System.out.print("Digite a Descrição do Serviço: ");
-        String descricao = scanner.nextLine();
-        System.out.print("Digite o Preço do Serviço: ");
-        double preco = scanner.nextDouble();
-        scanner.nextLine(); // Limpar o buffer do scanner
+        scanner.nextLine();
 
-        Servico novoServico = new Servico(id, descricao, preco);
-        if (arvoreServico.inserir(novoServico)) {
-            System.out.println("Serviço inserido com sucesso!");
+        System.out.print("Digite a nova Marca do Carro: ");
+        String novaMarca = scanner.nextLine();
+        System.out.print("Digite o novo Modelo do Carro: ");
+        String novoModelo = scanner.nextLine();
+
+        if (arvoreCarro.alterarCarro(id, novaMarca, novoModelo)) {
+            System.out.println("Carro alterado com sucesso!");
         } else {
-            System.out.println("Erro ao inserir o Serviço. Verifique se o ID já existe na árvore.");
+            System.out.println("Erro ao alterar o Carro. Verifique se o ID está correto.");
         }
     }
-
-    private static void removerServico() {
-        System.out.println("\nRemoção de Serviço:");
-        System.out.print("Digite a Descrição do Serviço que deseja remover: ");
-        String descricao = scanner.nextLine();
-
-        if (arvoreServico.removerPorDescricao(descricao)) {
-            System.out.println("Serviço removido com sucesso!");
-        } else {
-            System.out.println("Erro ao remover o Serviço. Verifique se a Descrição está correta.");
-        }
-    }
-
-    private static void buscarServicoPorDescricao() {
-        System.out.println("\nBusca de Serviço por Descrição:");
-        System.out.print("Digite a Descrição do Serviço que deseja buscar: ");
-        String descricao = scanner.nextLine();
-
-        Servico servicoEncontrado = arvoreServico.buscarPorDescricao(descricao);
-        if (servicoEncontrado != null) {
-            System.out.println("Serviço encontrado:");
-            System.out.println("ID: " + servicoEncontrado.getId());
-            System.out.println("Descrição: " + servicoEncontrado.getDescricao());
-            System.out.println("Preço: " + servicoEncontrado.getPreco());
-        } else {
-            System.out.println("Serviço não encontrado com a Descrição especificada.");
-        }
-    }
-
+    
     private static void exibirCarros() {
         System.out.println("\nExibindo todos os Carros (Pré-fixado):");
         Carro[] carros = arvoreCarro.camPreFixado();
@@ -177,15 +142,22 @@ public class Main {
         }
     }
 
-    private static void exibirServicos() {
-        System.out.println("\nExibindo todos os Serviços (Pré-fixado):");
-        Servico[] servicos = arvoreServico.camPreFixado();
-        if (servicos.length == 0) {
-            System.out.println("Não há serviços cadastrados.");
+    private static void inserirServico() {
+        System.out.println("\nInserção de Serviço:");
+        System.out.print("Digite o ID do Serviço: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Digite a Descrição do Serviço: ");
+        String descricao = scanner.nextLine();
+        System.out.print("Digite o Preço do Serviço: ");
+        double preco = scanner.nextDouble();
+        scanner.nextLine();
+
+        Servico novoServico = new Servico(id, descricao, preco);
+        if (arvoreServico.inserir(novoServico)) {
+            System.out.println("Serviço inserido com sucesso!");
         } else {
-            for (Servico servico : servicos) {
-                System.out.println("ID: " + servico.getId() + ", Descrição: " + servico.getDescricao() + ", Preço: " + servico.getPreco());
-            }
+            System.out.println("Erro ao inserir o Serviço. Verifique se o ID já existe na árvore.");
         }
     }
 }

@@ -84,6 +84,7 @@ public class ArvoreServico {
             return pesquisar(id, no.getDir());
         }
     }
+    
+    
 
-    // Implemente outras operações conforme necessário, como remoção e consultas específicas
 }

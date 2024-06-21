@@ -4,16 +4,21 @@ import dados.Carro;
 
 public class NoArvCarro {
     private Carro info;
-    private NoArvCarro esq, dir;
+    private NoArvCarro esq;
+    private NoArvCarro dir;
 
-    public NoArvCarro(Carro carro) {
-        this.info = carro;
+    public NoArvCarro(Carro info) {
+        this.info = info;
         this.esq = null;
         this.dir = null;
     }
 
     public Carro getInfo() {
         return info;
+    }
+
+    public void setInfo(Carro info) {
+        this.info = info;
     }
 
     public NoArvCarro getEsq() {
@@ -32,3 +37,4 @@ public class NoArvCarro {
         this.dir = dir;
     }
 }
+

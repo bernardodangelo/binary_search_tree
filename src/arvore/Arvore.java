@@ -23,25 +23,6 @@ public class Arvore {
 	public int getQuantNos() {
 		return this.quantNos;
 	}
-	
-	public boolean alterar(ItemChar elem) {
-	    NoArv no = pesquisar(elem.getChave(), this.raiz);
-	    if (no != null) {
-	        // Faz o cast de ItemChar para Item
-	        Item item = new Item((int) elem.getChave()); // Utiliza chave como inteiro
-	        no.setInfo(item);
-	        return true;
-	    }
-	    return false;
-	}
-
-	public ItemChar pesquisarItem(char chave) {
-	    NoArv no = pesquisar(chave, this.raiz);
-	    // Faz o cast de Item para ItemChar ao retornar
-	    return no != null ? new ItemChar((char) no.getInfo().getChave()) : null;
-	}
-
-
 
 	// inserir um novo n� na arvore. Sempre insere em um atributo que seja igual a
 	// null
