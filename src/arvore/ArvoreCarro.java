@@ -69,7 +69,7 @@ public class ArvoreCarro {
     
     public boolean remover(int id) {
         if (!pesquisar(id)) {
-            return false; // Carro não encontrado
+            return false;
         } else {
             this.raiz = remover(id, this.raiz);
             this.quantNos--;
@@ -101,11 +101,11 @@ public class ArvoreCarro {
         return no;
     }
     
-    public boolean alterarCarro(int id, String novaMarca, String novoModelo) {
+    public boolean alterarCarro(int id, String novaMarca, double novoPreco) {
         NoArvCarro no = buscarNo(id, this.raiz);
         if (no != null) {
             no.getInfo().setMarca(novaMarca);
-            no.getInfo().setModelo(novoModelo);
+            no.getInfo().setPreco(novoPreco);;
             return true;
         } else {
             return false;

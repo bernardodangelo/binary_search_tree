@@ -1,46 +1,55 @@
 package dados;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Servico {
-    private int id;
-    private String descricao;
-    private double preco;
-    private List<Carro> carros;
+	    private static int contadorId = 1;
+	    private int id;
+	    private String descricao;
+	    private double preco;
+	    private int carroId;
 
-    public Servico(int id, String descricao, double preco) {
-        this.id = id;
-        this.descricao = descricao;
-        this.preco = preco;
-        this.carros = new ArrayList<>();
-    }
+	    public static final Servico REPAROS = new Servico(1, "Reparos automotivos diversos", 800, -1);
+	    public static final Servico TROCA_DE_OLEO = new Servico(2, "Troca de óleo", 200, -1);
 
-    public int getId() {
-        return id;
-    }
+	    public Servico(int id, String descricao, double preco, int carroId) {
+	        this.id = id;
+	        this.descricao = descricao;
+	        this.preco = preco;
+	        this.carroId = carroId;
+	    }
 
-    public String getDescricao() {
-        return descricao;
-    }
+	    public static int gerarNovoId() {
+	        return contadorId++;
+	    }
 
-    public double getPreco() {
-        return preco;
-    }
+	    public int getId() {
+	        return id;
+	    }
 
-    public List<Carro> getCarros() {
-        return carros;
-    }
+	    public String getDescricao() {
+	        return descricao;
+	    }
 
-    public void adicionarCarro(Carro carro) {
-        this.carros.add(carro);
-    }
+	    public double getPreco() {
+	        return preco;
+	    }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+	    public int getCarroId() {
+	        return carroId;
+	    }
 
-    public void setPreco(double preco) {
-        this.preco = preco;
+	    public void setDescricao(String descricao) {
+	        this.descricao = descricao;
+	    }
+
+	    public void setPreco(double preco) {
+	        this.preco = preco;
+	    }
+
+	    public void setCarroId(int carroId) {
+	        this.carroId = carroId;
+	    }
+    
+    public String toString() {
+        return "ID: " + id + ", Descrição: " + descricao + ", Preço: " + preco + ", ID do Carro vinculado: " + carroId;
     }
 }

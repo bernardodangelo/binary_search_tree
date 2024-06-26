@@ -1,19 +1,15 @@
 package dados;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Carro {
     private int id;
     private String marca;
-    private String modelo;
-    private List<Servico> servicos;
+    private double preco;
+    private Servico servico;
 
-    public Carro(int id, String marca, String modelo) {
+    public Carro(int id, String marca, double preco) {
         this.id = id;
         this.marca = marca;
-        this.modelo = modelo;
-        this.servicos = new ArrayList<>();
+        this.preco = preco;
     }
 
     public int getId() {
@@ -23,24 +19,28 @@ public class Carro {
     public String getMarca() {
         return marca;
     }
-
-    public String getModelo() {
-        return modelo;
+    
+    public double getPreco() {
+        return preco;
     }
 
-    public List<Servico> getServicos() {
-        return servicos;
+    public Servico getServico() {
+        return servico;
     }
 
-    public void adicionarServico(Servico servico) {
-        this.servicos.add(servico);
+    public void setServico(Servico servico) {
+        this.servico = servico;
     }
 
     public void setMarca(String marca) {
         this.marca = marca;
     }
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
+    public String toString() {
+        return "ID: " + id + "\nMarca: " + marca + "\nPreço: " + preco;
     }
 }

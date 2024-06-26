@@ -1,6 +1,5 @@
 package arvore;
 
-import dados.Carro;
 import dados.Servico;
 
 public class ArvoreServico {
@@ -8,8 +7,8 @@ public class ArvoreServico {
     private int quantNos;
 
     public ArvoreServico() {
-        this.quantNos = 0;
         this.raiz = null;
+        this.quantNos = 0;
     }
 
     public boolean eVazia() {
@@ -24,30 +23,41 @@ public class ArvoreServico {
         return this.quantNos;
     }
 
-    public boolean inserir(Carro carro, Servico servico) {
-        if (pesquisar(servico.getId())) {
-            return false;
-        } else {
-            this.raiz = inserir(servico, this.raiz);
+    public boolean inserir(Servico servico) {
+        if (raiz == null) {
+            raiz = new NoArvServico(servico);
             this.quantNos++;
-            servico.adicionarCarro(carro);
-            carro.adicionarServico(servico);
             return true;
+        } else {
+            return inserir(servico, raiz);
         }
     }
 
-    private NoArvServico inserir(Servico servico, NoArvServico no) {
-        if (no == null) {
-            NoArvServico novo = new NoArvServico(servico);
-            return novo;
-        } else {
-            if (servico.getId() < no.getInfo().getId()) {
-                no.setEsq(inserir(servico, no.getEsq()));
-                return no;
+    private boolean inserir(Servico servico, NoArvServico no) {
+        if (servico.getId() < no.getInfo().getId()) {
+            if (no.getEsq() == null) {
+                no.setEsq(new NoArvServico(servico));
+                this.quantNos++;
+                return true;
             } else {
-                no.setDir(inserir(servico, no.getDir()));
-                return no;
+                return inserir(servico, no.getEsq());
             }
+        } else if (servico.getId() > no.getInfo().getId()) {
+            if (no.getDir() == null) {
+                no.setDir(new NoArvServico(servico));
+                this.quantNos++;
+                return true;
+            } else {
+                return inserir(servico, no.getDir());
+            }
+        } else {
+            NoArvServico temp = no;
+            while (temp.getProx() != null) {
+                temp = temp.getProx();
+            }
+            temp.setProx(new NoArvServico(servico));
+            this.quantNos++;
+            return true;
         }
     }
 
@@ -101,6 +111,13 @@ public class ArvoreServico {
         return no;
     }
 
+    private NoArvServico encontrarMinimo(NoArvServico no) {
+        if (no.getEsq() == null) {
+            return no;
+        }
+        return encontrarMinimo(no.getEsq());
+    }
+
     public boolean alterarServico(int id, String novaDescricao, double novoPreco) {
         NoArvServico no = buscarNo(id, this.raiz);
         if (no != null) {
@@ -122,13 +139,6 @@ public class ArvoreServico {
         } else {
             return buscarNo(id, no.getDir());
         }
-    }
-
-    private NoArvServico encontrarMinimo(NoArvServico no) {
-        if (no == null || no.getEsq() == null) {
-            return no;
-        }
-        return encontrarMinimo(no.getEsq());
     }
 
     public Servico buscarPorId(int id) {
@@ -162,5 +172,21 @@ public class ArvoreServico {
             vet = fazCamPreFixado(no.getDir(), vet, n);
         }
         return vet;
+    }
+    
+    public boolean carroJaPossuiServico(int carroId, int servicoId) {
+        return carroJaPossuiServico(carroId, servicoId, raiz);
+    }
+
+    private boolean carroJaPossuiServico(int carroId, int servicoId, NoArvServico no) {
+        if (no == null) {
+            return false;
+        }
+
+        if (no.getInfo().getCarroId() == carroId && no.getInfo().getId() == servicoId) {
+            return true;
+        }
+
+        return carroJaPossuiServico(carroId, servicoId, no.getEsq()) || carroJaPossuiServico(carroId, servicoId, no.getDir());
     }
 }

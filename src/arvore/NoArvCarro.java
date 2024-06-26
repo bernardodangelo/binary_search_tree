@@ -4,8 +4,7 @@ import dados.Carro;
 
 public class NoArvCarro {
     private Carro info;
-    private NoArvCarro esq;
-    private NoArvCarro dir;
+    private NoArvCarro esq, dir;
 
     public NoArvCarro(Carro info) {
         this.info = info;
@@ -37,4 +36,3 @@ public class NoArvCarro {
         this.dir = dir;
     }
 }
-

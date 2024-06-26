@@ -5,11 +5,13 @@ import dados.Servico;
 public class NoArvServico {
     private Servico info;
     private NoArvServico esq, dir;
+    private NoArvServico prox; 
 
-    public NoArvServico(Servico servico) {
-        this.info = servico;
+    public NoArvServico(Servico info) {
+        this.info = info;
         this.esq = null;
         this.dir = null;
+        this.prox = null; 
     }
 
     public Servico getInfo() {
@@ -34,5 +36,13 @@ public class NoArvServico {
 
     public void setDir(NoArvServico dir) {
         this.dir = dir;
+    }
+
+    public NoArvServico getProx() {
+        return prox;
+    }
+
+    public void setProx(NoArvServico prox) {
+        this.prox = prox;
     }
 }
